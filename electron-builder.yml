@@ -1,0 +1,19 @@
+appId: com.mickeykorea.keypress
+mac:
+  category: public.app-category.utilities
+  target:
+    - dmg
+    - zip
+publish:
+  provider: github
+  owner: mickeykorea
+  repo: keypress
+dmg:
+  title: Keypress
+  contents:
+    - x: 130
+      y: 220
+    - x: 410
+      y: 220
+      type: link
+      path: /Applications

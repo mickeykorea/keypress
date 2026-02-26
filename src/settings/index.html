@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline';">
+  <title>Keypress Settings</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Tab bar (draggable, replaces titlebar) -->
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="appearance">
+      <svg width="20" height="20" viewBox="0 0 20.2832 19.9316">
+        <path d="M9.96094 18.8867L9.96094 1.02539C4.88281 1.02539 1.02539 4.88281 1.02539 9.96094C1.02539 15.0391 4.88281 18.8867 9.96094 18.8867ZM9.96094 19.9219C15.459 19.9219 19.9219 15.459 19.9219 9.96094C19.9219 4.46289 15.459 0 9.96094 0C4.46289 0 0 4.46289 0 9.96094C0 15.459 4.46289 19.9219 9.96094 19.9219ZM9.96094 18.2617C5.37109 18.2617 1.66016 14.5508 1.66016 9.96094C1.66016 5.37109 5.37109 1.66016 9.96094 1.66016C14.5508 1.66016 18.2617 5.37109 18.2617 9.96094C18.2617 14.5508 14.5508 18.2617 9.96094 18.2617Z" fill="currentColor"/>
+      </svg>
+      <span>Appearance</span>
+    </button>
+    <button class="tab-btn" data-tab="display">
+      <svg width="20" height="20" viewBox="0 0 23.6426 20.3613">
+        <path d="M2.27539 15.3223C1.8457 15.3223 1.57227 15.0488 1.57227 14.6191L1.57227 2.95898C1.57227 2.51953 1.8457 2.25586 2.27539 2.25586L21.0059 2.25586C21.4355 2.25586 21.709 2.51953 21.709 2.95898L21.709 14.6191C21.709 15.0488 21.4355 15.3223 21.0059 15.3223Z" fill="currentColor" fill-opacity="0.2"/>
+        <path d="M2.24609 16.8945L21.0254 16.8945C22.4316 16.8945 23.2812 16.0449 23.2812 14.6387L23.2812 2.92969C23.2812 1.52344 22.4316 0.683594 21.0254 0.683594L2.24609 0.683594C0.849609 0.683594 0 1.52344 0 2.92969L0 14.6387C0 16.0449 0.849609 16.8945 2.24609 16.8945ZM2.27539 15.3223C1.8457 15.3223 1.57227 15.0488 1.57227 14.6191L1.57227 2.95898C1.57227 2.51953 1.8457 2.25586 2.27539 2.25586L21.0059 2.25586C21.4355 2.25586 21.709 2.51953 21.709 2.95898L21.709 14.6191C21.709 15.0488 21.4355 15.3223 21.0059 15.3223ZM8.55469 19.2188L14.7266 19.2188L14.7266 16.7676L8.55469 16.7676ZM8.49609 20.3613L14.7852 20.3613C15.2148 20.3613 15.5664 20.0098 15.5664 19.5703C15.5664 19.1309 15.2148 18.7793 14.7852 18.7793L8.49609 18.7793C8.06641 18.7793 7.70508 19.1309 7.70508 19.5703C7.70508 20.0098 8.06641 20.3613 8.49609 20.3613Z" fill="currentColor"/>
+      </svg>
+      <span>Display</span>
+    </button>
+    <button class="tab-btn" data-tab="options">
+      <svg width="20" height="20" viewBox="0 0 20.7715 20.4199">
+        <path d="M9.30664 20.4102L11.1035 20.4102C11.6113 20.4102 11.9727 20.1074 12.0898 19.6094L12.5977 17.4609C12.9785 17.334 13.3496 17.1875 13.6719 17.0312L15.5566 18.1836C15.9766 18.4473 16.4551 18.4082 16.8066 18.0566L18.0664 16.8066C18.418 16.4551 18.4668 15.9473 18.1836 15.5273L17.0312 13.6621C17.1973 13.3203 17.3438 12.9688 17.4512 12.6172L19.6191 12.0996C20.1172 11.9824 20.4102 11.6211 20.4102 11.1133L20.4102 9.3457C20.4102 8.84766 20.1172 8.48633 19.6191 8.36914L17.4707 7.85156C17.3438 7.45117 17.1875 7.08984 17.0508 6.78711L18.2031 4.89258C18.4668 4.46289 18.4473 4.00391 18.0859 3.64258L16.8066 2.38281C16.4453 2.05078 16.0059 1.97266 15.5859 2.23633L13.6719 3.41797C13.3594 3.25195 12.998 3.10547 12.5977 2.97852L12.0898 0.800781C11.9727 0.302734 11.6113 0 11.1035 0L9.30664 0C8.79883 0 8.4375 0.302734 8.31055 0.800781L7.80273 2.95898C7.42188 3.08594 7.05078 3.23242 6.71875 3.4082L4.82422 2.23633C4.4043 1.97266 3.94531 2.03125 3.59375 2.38281L2.32422 3.64258C1.96289 4.00391 1.93359 4.46289 2.20703 4.89258L3.34961 6.78711C3.22266 7.08984 3.06641 7.45117 2.93945 7.85156L0.791016 8.36914C0.292969 8.48633 0 8.84766 0 9.3457L0 11.1133C0 11.6211 0.292969 11.9824 0.791016 12.0996L2.95898 12.6172C3.06641 12.9688 3.21289 13.3203 3.36914 13.6621L2.22656 15.5273C1.93359 15.9473 1.99219 16.4551 2.34375 16.8066L3.59375 18.0566C3.94531 18.4082 4.43359 18.4473 4.85352 18.1836L6.72852 17.0312C7.06055 17.1875 7.42188 17.334 7.80273 17.4609L8.31055 19.6094C8.4375 20.1074 8.79883 20.4102 9.30664 20.4102ZM10.2051 13.6523C8.30078 13.6523 6.75781 12.1094 6.75781 10.2051C6.75781 8.30078 8.30078 6.75781 10.2051 6.75781C12.1094 6.75781 13.6523 8.30078 13.6523 10.2051C13.6523 12.1094 12.1094 13.6523 10.2051 13.6523Z" fill="currentColor"/>
+      </svg>
+      <span>Options</span>
+    </button>
+  </div>
+
+  <div id="settings-container">
+    <!-- Appearance panel -->
+    <div class="tab-panel active" data-tab="appearance">
+      <p class="tab-description">Customize the look and feel of the keystroke overlay, including theme, size, and transparency.</p>
+
+      <div class="setting-row">
+        <label>Theme</label>
+        <div class="segmented-control" data-setting="theme">
+          <button data-value="light">Light</button>
+          <button data-value="dark">Dark</button>
+          <button data-value="auto">Auto</button>
+          <button data-value="custom">Custom</button>
+        </div>
+      </div>
+
+      <div class="setting-row" id="custom-color-row" style="display: none">
+        <label></label>
+        <div class="color-swatch-bar">
+          <button class="color-swatch" data-color="#3B82F6" style="background:#3B82F6" title="Blue"></button>
+          <button class="color-swatch" data-color="#8B5CF6" style="background:#8B5CF6" title="Purple"></button>
+          <button class="color-swatch" data-color="#EC4899" style="background:#EC4899" title="Pink"></button>
+          <button class="color-swatch" data-color="#EF4444" style="background:#EF4444" title="Red"></button>
+          <button class="color-swatch" data-color="#F97316" style="background:#F97316" title="Orange"></button>
+          <button class="color-swatch" data-color="#EAB308" style="background:#EAB308" title="Yellow"></button>
+          <button class="color-swatch" data-color="#22C55E" style="background:#22C55E" title="Green"></button>
+          <button class="color-swatch" data-color="#14B8A6" style="background:#14B8A6" title="Teal"></button>
+          <button class="color-swatch" data-color="#06B6D4" style="background:#06B6D4" title="Cyan"></button>
+          <button class="color-swatch" data-color="#64748B" style="background:#64748B" title="Slate"></button>
+          <button class="color-well" id="color-well" title="Pick custom color..."></button>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <label>Size</label>
+        <div class="segmented-control" data-setting="size">
+          <button data-value="small">Small</button>
+          <button data-value="medium">Medium</button>
+          <button data-value="large">Large</button>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <label>Opacity</label>
+        <div class="slider-control">
+          <input type="range" id="opacity" min="10" max="100" step="5" />
+          <span class="slider-value" id="opacity-value">75%</span>
+        </div>
+      </div>
+
+      <div class="setting-row last">
+        <label>Duration</label>
+        <div class="slider-control">
+          <input type="range" id="duration" min="0.5" max="5" step="0.1" />
+          <span class="slider-value" id="duration-value">1.5s</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Display panel -->
+    <div class="tab-panel" data-tab="display">
+      <p class="tab-description">Control where and how keystrokes appear on screen.</p>
+
+      <div class="setting-row">
+        <label>Position</label>
+        <div class="segmented-control" data-setting="positionMode">
+          <button data-value="preset">Preset</button>
+          <button data-value="custom">Custom</button>
+        </div>
+      </div>
+
+      <div class="setting-row" id="position-preset-row">
+        <label></label>
+        <div class="position-grid" data-setting="position">
+          <button data-value="top-left" title="Top Left">
+            <span class="dot"></span>
+          </button>
+          <button data-value="top-center" title="Top Center">
+            <span class="dot"></span>
+          </button>
+          <button data-value="top-right" title="Top Right">
+            <span class="dot"></span>
+          </button>
+          <button data-value="bottom-left" title="Bottom Left">
+            <span class="dot"></span>
+          </button>
+          <button data-value="bottom-center" title="Bottom Center">
+            <span class="dot"></span>
+          </button>
+          <button data-value="bottom-right" title="Bottom Right">
+            <span class="dot"></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="setting-row" id="position-custom-row" style="display: none">
+        <label></label>
+        <button class="reposition-btn" id="reposition-btn">Reposition on Screen</button>
+      </div>
+
+      <div class="setting-row">
+        <label>Monitor</label>
+        <div class="dropdown-control" id="monitor-dropdown">
+          <button class="dropdown-toggle" id="monitor-toggle">
+            <span class="dropdown-label" id="monitor-label">Primary Display</span>
+            <svg class="dropdown-chevron" width="8" height="5" viewBox="0 0 8 5"><path d="M0.5 0.5L4 4L7.5 0.5" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="dropdown-menu" id="monitor-menu"></div>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <label>Display Mode</label>
+        <div class="segmented-control" data-setting="displayMode">
+          <button data-value="single">Single</button>
+          <button data-value="stack">Stack</button>
+        </div>
+      </div>
+
+      <div class="setting-row last">
+        <label>Show</label>
+        <div class="segmented-control" data-setting="displayFilter">
+          <button data-value="all">All Keys</button>
+          <button data-value="combos">Combos Only</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Options panel -->
+    <div class="tab-panel" data-tab="options">
+      <p class="tab-description">Additional preferences for keystroke behavior and system integration.</p>
+
+      <div class="setting-row">
+        <label>Show Keypress <span class="shortcut-hint">⌥⌘K</span></label>
+        <label class="toggle-switch">
+          <input type="checkbox" id="enableKeypress" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-row">
+        <label>Show Modifier-Only Presses</label>
+        <label class="toggle-switch">
+          <input type="checkbox" id="showModifierOnly" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-row">
+        <label>Show App in Dock</label>
+        <label class="toggle-switch">
+          <input type="checkbox" id="showInDock" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-row last">
+        <label>Launch at Login</label>
+        <label class="toggle-switch">
+          <input type="checkbox" id="launchAtLogin" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

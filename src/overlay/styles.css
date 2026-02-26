@@ -1,0 +1,365 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent;
+  font-family: -apple-system, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Position variants — controlled via data-position on <html> */
+/* Default: bottom-center — container anchored at bottom edge, auto-height.
+   Grows upward when new pills are prepended, so existing pills never move. */
+#keystroke-container {
+  position: absolute;
+  bottom: 24px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+html[data-position="bottom-left"] #keystroke-container {
+  align-items: flex-start;
+  padding-left: 24px;
+}
+
+html[data-position="bottom-right"] #keystroke-container {
+  align-items: flex-end;
+  padding-right: 24px;
+}
+
+/* Top positions — anchored at top edge, grows downward */
+html[data-position="top-left"] #keystroke-container,
+html[data-position="top-center"] #keystroke-container,
+html[data-position="top-right"] #keystroke-container {
+  top: 24px;
+  bottom: auto;
+}
+
+html[data-position="top-left"] #keystroke-container {
+  align-items: flex-start;
+  padding-left: 24px;
+}
+
+html[data-position="top-center"] #keystroke-container {
+  align-items: center;
+}
+
+html[data-position="top-right"] #keystroke-container {
+  align-items: flex-end;
+  padding-right: 24px;
+}
+
+/* Custom position — auto-sized container at specific coordinates */
+html[data-position="custom"] #keystroke-container {
+  top: var(--custom-y, 80%);
+  bottom: auto;
+  left: var(--custom-x, 50%);
+  right: auto;
+  padding: 0;
+  transform: translateX(-50%);
+  align-items: center;
+}
+
+html[data-position="custom"][data-stack="up"] #keystroke-container {
+  flex-direction: column-reverse;
+}
+
+html[data-position="custom"][data-stack="down"] #keystroke-container {
+  flex-direction: column;
+}
+
+/* Reposition mode — scrim + drag UI */
+.reposition-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.12);
+  z-index: 1000;
+}
+
+.reposition-instructions {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: -apple-system, 'SF Pro Text', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.65);
+  padding: 8px 18px;
+  border-radius: 8px;
+  white-space: nowrap;
+  z-index: 1002;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.reposition-mode #keystroke-container {
+  cursor: grab;
+  z-index: 1001;
+  pointer-events: auto;
+}
+
+body.reposition-mode #keystroke-container.dragging {
+  cursor: grabbing;
+}
+
+/* Custom position uses bottom-style animations by default */
+html[data-position="custom"][data-stack="down"] .keystroke {
+  animation-name: keystroke-in-top;
+}
+
+html[data-position="custom"][data-stack="down"] .keystroke.fade-out {
+  animation-name: keystroke-out-top;
+}
+
+/* Keystroke row — transparent flex container */
+.keystroke {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 28px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: var(--pill-opacity, 0.75);
+  animation: keystroke-in-bottom 0.2s ease-out both;
+}
+
+/* Top positions use different animation direction */
+html[data-position="top-left"] .keystroke,
+html[data-position="top-center"] .keystroke,
+html[data-position="top-right"] .keystroke {
+  animation-name: keystroke-in-top;
+}
+
+/* Individual keycap — Mac keyboard key style (light) */
+.keycap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+  height: 60px;
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+  background: linear-gradient(180deg, #fafafa 0%, #e8e8e8 100%);
+  color: rgba(0, 0, 0, 0.85);
+  border: 0.5px solid rgba(0, 0, 0, 0.15);
+  border-bottom-width: 1.5px;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark theme keycap */
+html[data-theme="dark"] .keycap {
+  background: linear-gradient(180deg, #4a4a4a 0%, #363636 100%);
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.1);
+  border-bottom-color: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+/* Custom theme keycap — colors derived from user-chosen base via CSS variables */
+html[data-theme="custom"] .keycap {
+  background: linear-gradient(180deg, var(--keycap-bg-top) 0%, var(--keycap-bg-bottom) 100%);
+  color: var(--keycap-text);
+  border-color: var(--keycap-border);
+  border-bottom-color: var(--keycap-border-bottom);
+  box-shadow: 0 1px 0 var(--keycap-shadow-tight), 0 1px 3px var(--keycap-shadow-spread);
+}
+
+/* Modifier keycap — stacked: symbol top-right, name bottom-right (Apple Magic Keyboard) */
+.keycap.modifier {
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 97px;
+  padding: 8px 10px;
+  gap: 0;
+  min-width: auto;
+}
+
+.mod-symbol {
+  font-size: 0.75em;
+  line-height: 1;
+}
+
+.mod-name {
+  font-size: 0.4em;
+  font-weight: 400;
+  opacity: 0.55;
+  line-height: 1;
+}
+
+/* Icon keycap (Esc, Space, Return) — same layout as modifier */
+.keycap.icon-key {
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 97px;
+  padding: 8px 10px;
+  gap: 0;
+  min-width: auto;
+}
+
+/* Arrow keycap — fixed square size */
+.keycap.arrow-key {
+  width: 60px;
+  min-width: auto;
+  padding: 0;
+}
+
+html[data-size="small"] .keycap.arrow-key {
+  width: 45px;
+}
+
+html[data-size="large"] .keycap.arrow-key {
+  width: 78px;
+}
+
+/* Caps Lock — LED + symbol on the same row */
+.caps-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.caps-led {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(128, 128, 128, 0.3);
+  flex-shrink: 0;
+}
+
+.caps-led.on {
+  background: #30D158;
+  box-shadow: 0 0 4px rgba(48, 209, 88, 0.6);
+}
+
+/* Single-character keycaps — fixed width for consistent sizing */
+.keycap.char {
+  width: 60px;
+}
+
+/* Size variants */
+html[data-size="small"] .keystroke {
+  font-size: 22px;
+  gap: 6px;
+}
+
+html[data-size="small"] .keycap {
+  min-width: 45px;
+  height: 45px;
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+
+html[data-size="small"] .keycap.modifier,
+html[data-size="small"] .keycap.icon-key {
+  width: 73px;
+  padding: 6px 8px;
+  gap: 0;
+}
+
+html[data-size="small"] .keycap.char {
+  width: 45px;
+}
+
+html[data-size="small"] .caps-led {
+  width: 5px;
+  height: 5px;
+}
+
+html[data-size="small"] .repeat-badge {
+  font-size: 14px;
+}
+
+/* medium is the default — no override needed */
+
+html[data-size="large"] .keystroke {
+  font-size: 36px;
+  gap: 10px;
+}
+
+html[data-size="large"] .keycap {
+  min-width: 78px;
+  height: 78px;
+  padding: 18px 26px;
+  border-radius: 13px;
+}
+
+html[data-size="large"] .keycap.modifier,
+html[data-size="large"] .keycap.icon-key {
+  width: 126px;
+  padding: 10px 14px;
+  gap: 0;
+}
+
+html[data-size="large"] .keycap.char {
+  width: 78px;
+}
+
+html[data-size="large"] .caps-led {
+  width: 8px;
+  height: 8px;
+}
+
+html[data-size="large"] .repeat-badge {
+  font-size: 22px;
+}
+
+.repeat-badge {
+  font-size: 18px;
+  font-weight: 600;
+  opacity: 0.6;
+  margin-left: 2px;
+}
+
+/* Fade-out — direction depends on position */
+.keystroke.fade-out {
+  animation: keystroke-out-bottom 0.4s ease-in forwards;
+}
+
+html[data-position="top-left"] .keystroke.fade-out,
+html[data-position="top-center"] .keystroke.fade-out,
+html[data-position="top-right"] .keystroke.fade-out {
+  animation-name: keystroke-out-top;
+}
+
+/* Bottom animations — enter from below, exit upward */
+@keyframes keystroke-in-bottom {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: var(--pill-opacity, 0.75); transform: translateY(0); }
+}
+
+@keyframes keystroke-out-bottom {
+  from { opacity: var(--pill-opacity, 0.75); transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-12px); }
+}
+
+/* Top animations — enter from above, exit downward */
+@keyframes keystroke-in-top {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: var(--pill-opacity, 0.75); transform: translateY(0); }
+}
+
+@keyframes keystroke-out-top {
+  from { opacity: var(--pill-opacity, 0.75); transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(12px); }
+}
+

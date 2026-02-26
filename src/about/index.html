@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Keypress</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="about">
+      <picture>
+        <source
+          srcset="../assets/keypressIcon-dark.png"
+          media="(prefers-color-scheme: dark)"
+        />
+        <img
+          src="../assets/keypressIcon-light.png"
+          alt="Keypress"
+          class="icon"
+          width="96"
+          height="96"
+        />
+      </picture>
+      <h1>Keypress</h1>
+      <p class="version"></p>
+      <p class="copyright">Copyright &copy; 2026 Mickey Oh</p>
+      <p class="email">mickey@protopie.io</p>
+    </div>
+    <script>
+      window.Keypress.getVersion().then((v) => {
+        document.querySelector(".version").textContent = "Version " + v;
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,546 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --text-primary: rgba(0, 0, 0, 0.85);
+  --text-secondary: rgba(0, 0, 0, 0.5);
+  --border-color: rgba(0, 0, 0, 0.08);
+  --control-bg: rgba(0, 0, 0, 0.06);
+  --control-active-bg: rgba(255, 255, 255, 0.9);
+  --control-active-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.1), 0 0.5px 1px rgba(0, 0, 0, 0.06);
+  --accent-color: #007aff;
+  --tab-active-bg: rgba(0, 122, 255, 0.12);
+  --toggle-bg: rgba(0, 0, 0, 0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-primary: rgba(255, 255, 255, 0.9);
+    --text-secondary: rgba(255, 255, 255, 0.5);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --control-bg: rgba(255, 255, 255, 0.08);
+    --control-active-bg: rgba(255, 255, 255, 0.18);
+    --control-active-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --tab-active-bg: rgba(0, 122, 255, 0.2);
+    --toggle-bg: rgba(255, 255, 255, 0.15);
+  }
+}
+
+html,
+body {
+  font-family:
+    -apple-system, "SF Pro Text", "SF Pro Display", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: var(--text-primary);
+  background: transparent;
+  user-select: none;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Tab bar ── */
+.tab-bar {
+  -webkit-app-region: drag;
+  height: 72px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding-left: 72px;
+  padding-right: 72px;
+  flex-shrink: 0;
+}
+
+.tab-btn {
+  -webkit-app-region: no-drag;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  width: 68px;
+  padding: 8px 6px 6px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: default;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.tab-btn svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.tab-btn span {
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.tab-btn:hover {
+  background: var(--control-bg);
+  color: var(--text-primary);
+}
+
+.tab-btn.active {
+  background: var(--tab-active-bg);
+  color: var(--accent-color);
+}
+
+/* ── Tab panels ── */
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.tab-description {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+
+/* ── Main container ── */
+#settings-container {
+  padding: 16px 28px 28px;
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Setting rows ── */
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 0;
+  border-bottom: 0.5px solid var(--border-color);
+}
+
+.setting-row.last {
+  border-bottom: none;
+}
+
+.setting-row > label:first-child {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+
+.shortcut-hint {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-left: 4px;
+}
+
+/* ── Segmented control ── */
+.segmented-control {
+  display: inline-flex;
+  background: var(--control-bg);
+  border-radius: 7px;
+  padding: 2px;
+  gap: 1px;
+  -webkit-app-region: no-drag;
+}
+
+.segmented-control button {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 14px;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: default;
+  transition: all 0.15s ease;
+}
+
+.segmented-control button:hover {
+  color: var(--text-primary);
+}
+
+.segmented-control button.active {
+  background: var(--control-active-bg);
+  color: var(--text-primary);
+  box-shadow: var(--control-active-shadow);
+}
+
+/* ── Position grid — 3×2 resembling a screen ── */
+.position-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 3px;
+  width: 84px;
+  height: 56px;
+  background: var(--control-bg);
+  border-radius: 8px;
+  padding: 3px;
+  -webkit-app-region: no-drag;
+}
+
+.position-grid button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  cursor: default;
+  transition: all 0.15s ease;
+  padding: 0;
+}
+
+.position-grid button .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-secondary);
+  opacity: 0.3;
+  transition: all 0.15s ease;
+}
+
+.position-grid button:hover .dot {
+  opacity: 0.6;
+}
+
+.position-grid button.active {
+  background: var(--control-active-bg);
+  box-shadow: var(--control-active-shadow);
+}
+
+.position-grid button.active .dot {
+  background: var(--accent-color);
+  opacity: 1;
+}
+
+/* ── Select dropdown ── */
+select {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 24px 4px 10px;
+  border: none;
+  border-radius: 5px;
+  background: var(--control-bg);
+  color: var(--text-primary);
+  cursor: default;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='8' height='5' viewBox='0 0 8 5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.5 0.5L4 4L7.5 0.5' stroke='%23888' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  -webkit-app-region: no-drag;
+}
+
+select:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: -1px;
+}
+
+/* ── Dropdown control (monitor picker) ── */
+.dropdown-control {
+  position: relative;
+  -webkit-app-region: no-drag;
+}
+
+.dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 7px;
+  background: var(--control-bg);
+  color: var(--text-primary);
+  cursor: default;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.dropdown-toggle:hover {
+  background: var(--control-active-bg);
+}
+
+.dropdown-chevron {
+  color: var(--text-secondary);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.dropdown-control.open .dropdown-chevron {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 100%;
+  background: #f0f0f0;
+  border-radius: 7px;
+  padding: 3px;
+  z-index: 10;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.2),
+    0 0 0 0.5px rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .dropdown-menu {
+    background: #3a3a3a;
+    box-shadow:
+      0 4px 12px rgba(0, 0, 0, 0.4),
+      0 0 0 0.5px rgba(255, 255, 255, 0.08);
+  }
+}
+
+.dropdown-control.open .dropdown-menu {
+  display: block;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: left;
+  cursor: default;
+  white-space: nowrap;
+  transition: background 0.1s ease;
+}
+
+.dropdown-item:hover {
+  background: var(--control-active-bg);
+}
+
+.dropdown-item.active {
+  color: var(--accent-color);
+}
+
+/* ── Slider control (Apple HIG — 4px track, 20×16 capsule thumb) ── */
+.slider-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 26px;
+  -webkit-app-region: no-drag;
+}
+
+.slider-control input[type="range"] {
+  --track-bg: rgba(0, 0, 0, 0.05);
+  --track-fill: #0d6fff;
+  -webkit-appearance: none;
+  width: 150px;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(
+    to right,
+    var(--track-fill) var(--progress, 50%),
+    var(--track-bg) var(--progress, 50%)
+  );
+  outline: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .slider-control input[type="range"] {
+    --track-bg: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.slider-control input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 16px;
+  border-radius: 8px;
+  background: white;
+  box-shadow:
+    0 0 1px rgba(0, 0, 0, 0.05),
+    0 0 4px rgba(0, 0, 0, 0.05),
+    0 0 44px rgba(0, 0, 0, 0.1);
+  cursor: default;
+}
+
+.slider-value {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  min-width: 32px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Toggle switch (Apple HIG — 36×16 track, 21×13 capsule knob) ── */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 16px;
+  -webkit-app-region: no-drag;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: default;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  .toggle-slider {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.toggle-slider::before {
+  content: "";
+  position: absolute;
+  width: 21px;
+  height: 13px;
+  left: 1.5px;
+  top: 1.5px;
+  background: white;
+  border-radius: 6.5px;
+  box-shadow:
+    0 0 1px rgba(0, 0, 0, 0.05),
+    0 0 4px rgba(0, 0, 0, 0.05),
+    0 0 44px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background: #0d6fff;
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+  transform: translateX(12px);
+}
+
+/* ── Reposition button ── */
+.reposition-btn {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 14px;
+  border: none;
+  border-radius: 5px;
+  background: var(--accent-color);
+  color: white;
+  cursor: default;
+  -webkit-app-region: no-drag;
+  transition: opacity 0.15s ease;
+}
+
+.reposition-btn:hover {
+  opacity: 0.85;
+}
+
+.reposition-btn:active {
+  opacity: 0.7;
+}
+
+/* ── Color swatch bar (Custom theme) ── */
+.color-swatch-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  -webkit-app-region: no-drag;
+}
+
+.color-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: default;
+  transition:
+    border-color 0.15s ease,
+    transform 0.15s ease;
+  padding: 0;
+  outline: none;
+  position: relative;
+}
+
+.color-swatch:hover {
+  transform: scale(1.15);
+}
+
+.color-swatch.active {
+  border-color: white;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.2),
+    0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+/* ── Color well (Apple UIColorWell style) ── */
+.color-well {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  background:
+    linear-gradient(var(--well-color, #3b82f6), var(--well-color, #3b82f6))
+      padding-box,
+    conic-gradient(
+        hsl(0, 100%, 50%),
+        hsl(30, 100%, 50%),
+        hsl(60, 100%, 50%),
+        hsl(120, 100%, 50%),
+        hsl(180, 100%, 50%),
+        hsl(240, 100%, 50%),
+        hsl(300, 100%, 50%),
+        hsl(360, 100%, 50%)
+      )
+      border-box;
+  cursor: default;
+  padding: 0;
+  outline: none;
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+}
+
+.color-well:hover {
+  transform: scale(1.15);
+}
+
