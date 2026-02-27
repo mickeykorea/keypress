@@ -1,8 +1,8 @@
 # Keypress
 
-![GitHub release](https://img.shields.io/github/v/release/mickeykorea/keypress?style=flat-square)
-![License](https://img.shields.io/github/license/mickeykorea/keypress?style=flat-square)
-![Platform](https://img.shields.io/badge/platform-macOS-lightgrey?style=flat-square)
+![GitHub release](https://img.shields.io/github/v/release/mickeykorea/keypress)
+![License](https://img.shields.io/github/license/mickeykorea/keypress)
+![Platform](https://img.shields.io/badge/platform-macOS-lightgrey)
 
 A lightweight macOS utility that displays keyboard input as a floating overlay. Built for screen recordings, live demos, and tutorials where viewers need to see exactly what keys are being pressed.
 
