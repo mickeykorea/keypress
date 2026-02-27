@@ -33,7 +33,7 @@ A keystroke visualizer for macOS. Shows what you're typing as a floating overlay
 You can download the latest version of Keypress from the **[Release](https://github.com/mickeykorea/keypress/releases)** page.
 
 - **macOS:** Download the `.dmg`.
-  **Note:** Keypress requires **Accessibility** permission to capture keystrokes. On first launch, grant access in:
+  Keypress requires **Accessibility** permission to capture keystrokes. On first launch, grant access in:
   `System Settings > Privacy & Security > Accessibility`
 
 </br>
