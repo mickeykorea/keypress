@@ -1,8 +1,12 @@
 # Keypress
 
+![GitHub release](https://img.shields.io/github/v/release/mickeykorea/keypress?style=flat-square)
+![License](https://img.shields.io/github/license/mickeykorea/keypress?style=flat-square)
+![Platform](https://img.shields.io/badge/platform-macOS-lightgrey?style=flat-square)
+
 A lightweight macOS utility that displays keyboard input as a floating overlay. Built for screen recordings, live demos, and tutorials where viewers need to see exactly what keys are being pressed.
 
-<!-- TODO: Add a hero screenshot or GIF here -->
+<!-- hero screenshot or GIF here -->
 <!-- ![Keypress Demo](assets/demo.gif) -->
 
 ## Features
@@ -18,7 +22,7 @@ A lightweight macOS utility that displays keyboard input as a floating overlay. 
 - **Menu bar tray icon** — quick access without a Dock icon
 - **Apple HIG settings UI** — native-feeling controls that match macOS System Settings
 
-<!-- TODO: Add a screenshot of the settings window -->
+<!-- Screenshot of the settings window -->
 <!-- ![Settings](assets/settings.png) -->
 
 ## Installation
@@ -43,21 +47,21 @@ Pre-built `.dmg` releases will be available on the [Releases](https://github.com
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Runtime | Electron 39 |
-| UI | HTML + CSS + vanilla JS |
-| Keyboard capture | uiohook-napi |
-| Settings persistence | electron-conf |
-| Packaging | Electron Forge / electron-builder |
+| Layer                | Technology                        |
+| -------------------- | --------------------------------- |
+| Runtime              | Electron 39                       |
+| UI                   | HTML + CSS + vanilla JS           |
+| Keyboard capture     | uiohook-napi                      |
+| Settings persistence | electron-conf                     |
+| Packaging            | Electron Forge / electron-builder |
 
 ## Keyboard Shortcuts
 
-| Shortcut | Action |
-|---|---|
-| ⌥⌘K | Toggle overlay on/off |
-| ⌘, | Open Settings |
-| ⌘Q | Quit |
+| Shortcut | Action                |
+| -------- | --------------------- |
+| ⌥⌘K      | Toggle overlay on/off |
+| ⌘,       | Open Settings         |
+| ⌘Q       | Quit                  |
 
 ## License
 
