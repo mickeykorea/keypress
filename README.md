@@ -30,8 +30,6 @@ A keystroke visualizer for macOS. Shows what you're typing as a floating overlay
 
 ## Installation
 
-### macOS
-
 You can download the latest version of Keypress from the **[Release](https://github.com/mickeykorea/keypress/releases)** page.
 
 - **macOS:** Download the `.dmg`.
