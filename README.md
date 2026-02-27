@@ -25,6 +25,8 @@ A keystroke visualizer for macOS. Shows what you're typing as a floating overlay
 <!-- Screenshot of the settings window -->
 <!-- ![Settings](assets/settings.png) -->
 
+</br>
+
 ## Installation
 
 ### macOS
@@ -34,6 +36,8 @@ You can download the latest version of Keypress from the **[Release](https://git
 - **macOS:** Download the `.dmg`.
   **Note:** Keypress requires **Accessibility** permission to capture keystrokes. On first launch, grant access in:
   `System Settings > Privacy & Security > Accessibility`
+
+</br>
 
 ## Contribution
 
@@ -56,6 +60,8 @@ If you want to contribute or build from source, make sure you have [Node.js](htt
     ```bash
     npm run make
     ```
+
+</br>
 
 ## Feedback
 
