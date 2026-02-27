@@ -9,17 +9,18 @@ A keystroke visualizer for macOS. Shows what you're typing as a floating overlay
 <!-- hero screenshot or GIF here -->
 <!-- ![Keypress Demo](assets/demo.gif) -->
 
+</br>
+
 ## Features
 
 - **Real-time keystroke overlay** styled after the Apple Magic Keyboard
-- **Modifier symbols** ⌘ ⌥ ⇧ ⌃ with Apple iconography
+- **Modifier symbols** ⌘ ⌥ ⇧ ⌃ with proper Apple iconography
 - **Light / Dark / Auto / Custom themes** follows your system appearance or let you pick your own colors
-- **Stack & Single display modes** show keystroke history or just the latest key
-- **6 preset positions + drag-to-reposition** place the overlay anywhere on screen
+- **Stack & Single display modes** to show keystroke history or just the latest key
+- **6 preset positions + drag-to-reposition** so you can place the overlay wherever you want
 - **Multi-monitor support** choose which display to show the overlay on
 - **Adjustable size, opacity, and duration** to tweak it until it feels right
 - **Global toggle** ⌥⌘K to show/hide from any app
-- **Lives in the menu bar & dock** quick access either from the menu bar or dock
 - **Intuitive settings UI** with only the essentials, no BS
 
 <!-- Screenshot of the settings window -->
@@ -66,4 +67,12 @@ If you want to contribute or build from source, make sure you have [Node.js](htt
 ## Feedback
 
 - **Email:** mickey@protopie.io
-- **Star the Repo:** It helps others discover the project.
+- **Star the Repo:** It helps others discover the app.
+
+</br>
+
+## License
+
+[GPL-3.0](https://opensource.org/licenses/GPL-3.0)
+
+Keypress is free and open source. Displaying keystrokes isn't rocket science, nor should it cost you any money.
