@@ -14,7 +14,7 @@ A lightweight macOS utility that displays keyboard input as a floating overlay. 
 - **6 preset positions + drag-to-reposition** — place the overlay anywhere on screen
 - **Multi-monitor support** — choose which display to show the overlay on
 - **Adjustable size, opacity, and duration** — fine-tune the overlay to your needs
-- **Global toggle** — ⌘⇧K to show/hide from any app
+- **Global toggle** — ⌥⌘K to show/hide from any app
 - **Menu bar tray icon** — quick access without a Dock icon
 - **Apple HIG settings UI** — native-feeling controls that match macOS System Settings
 
@@ -55,7 +55,7 @@ Pre-built `.dmg` releases will be available on the [Releases](https://github.com
 
 | Shortcut | Action |
 |---|---|
-| ⌘⇧K | Toggle overlay on/off |
+| ⌥⌘K | Toggle overlay on/off |
 | ⌘, | Open Settings |
 | ⌘Q | Quit |
 
