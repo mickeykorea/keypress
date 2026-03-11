@@ -5,8 +5,6 @@ const { uIOhook } = require('uiohook-napi');
 const { Conf } = require('electron-conf/main');
 const { autoUpdater } = require('electron-updater');
 
-// Handle Squirrel events for Windows installer (Forge requirement)
-if (require('electron-squirrel-startup')) app.quit();
 
 const store = new Conf({
   defaults: {

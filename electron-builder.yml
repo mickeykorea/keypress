@@ -1,13 +1,23 @@
 appId: com.mickeykorea.keypress
+productName: Keypress
+
+files:
+  - "**/*"
+  - "!**/node_modules/uiohook-napi/prebuilds/linux-*"
+  - "!**/node_modules/uiohook-napi/prebuilds/win32-*"
+
 mac:
+  icon: src/assets/icon.icns
   category: public.app-category.utilities
+  hardenedRuntime: true
+  gatekeeperAssess: false
+  entitlements: build/entitlements.mac.plist
+  entitlementsInherit: build/entitlements.mac.inherit.plist
   target:
     - dmg
     - zip
-publish:
-  provider: github
-  owner: mickeykorea
-  repo: keypress
+  notarize: true
+
 dmg:
   title: Keypress
   contents:
@@ -17,3 +27,10 @@ dmg:
       y: 220
       type: link
       path: /Applications
+
+publish:
+  provider: github
+  owner: mickeykorea
+  repo: keypress
+
+afterPack: ./scripts/afterPack.js
