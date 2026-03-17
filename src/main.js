@@ -418,8 +418,7 @@ app.whenReady().then(() => {
     // Handle showInDock side-effect
     if (newSettings.showInDock !== undefined) {
       if (settings.showInDock) {
-        app.dock.show();
-        updateDockIcon();
+        app.dock.show().then(() => updateDockIcon());
       } else {
         app.dock.hide();
         // Re-show settings window after dock hide (it loses focus)
@@ -600,11 +599,10 @@ app.whenReady().then(() => {
 
   // Apply initial dock visibility from persisted setting
   if (settings.showInDock) {
-    app.dock.show();
+    app.dock.show().then(() => updateDockIcon());
   } else {
     app.dock.hide();
   }
-  updateDockIcon();
 
   // Sync login item with persisted setting (fails silently in dev — unsigned app)
   try { app.setLoginItemSettings({ openAtLogin: settings.launchAtLogin }); } catch {}
