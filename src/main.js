@@ -174,7 +174,7 @@ function createAboutWindow() {
 function updateDockIcon() {
   if (!app.dock) return;
   const isDark = nativeTheme.shouldUseDarkColors;
-  const iconFile = isDark ? 'keypressIcon-dark.png' : 'keypressIcon-light.png';
+  const iconFile = isDark ? 'dockIcon-dark.png' : 'dockIcon-light.png';
   const iconPath = path.join(__dirname, 'assets', iconFile);
   app.dock.setIcon(iconPath);
 }
@@ -419,6 +419,7 @@ app.whenReady().then(() => {
     if (newSettings.showInDock !== undefined) {
       if (settings.showInDock) {
         app.dock.show();
+        updateDockIcon();
       } else {
         app.dock.hide();
         // Re-show settings window after dock hide (it loses focus)
