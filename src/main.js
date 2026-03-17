@@ -171,6 +171,14 @@ function createAboutWindow() {
   });
 }
 
+function updateDockIcon() {
+  if (!app.dock) return;
+  const isDark = nativeTheme.shouldUseDarkColors;
+  const iconFile = isDark ? 'keypressIcon-dark.png' : 'keypressIcon-light.png';
+  const iconPath = path.join(__dirname, 'assets', iconFile);
+  app.dock.setIcon(iconPath);
+}
+
 function getResolvedTheme() {
   if (settings.theme === 'auto') {
     return nativeTheme.shouldUseDarkColors ? 'dark' : 'light';
@@ -318,7 +326,8 @@ function setupAutoUpdater() {
   autoUpdater.autoInstallOnAppQuit = true;
 
   autoUpdater.on('update-available', (info) => {
-    dialog.showMessageBox({
+    const parent = settingsWindow || BrowserWindow.getFocusedWindow() || null;
+    dialog.showMessageBox(parent, {
       type: 'info',
       title: 'Update Available',
       message: `Keypress ${info.version} is available (you have ${app.getVersion()}).`,
@@ -331,7 +340,8 @@ function setupAutoUpdater() {
 
   autoUpdater.on('update-not-available', () => {
     if (manualUpdateCheck) {
-      dialog.showMessageBox({
+      const parent = settingsWindow || BrowserWindow.getFocusedWindow() || null;
+      dialog.showMessageBox(parent, {
         type: 'info',
         title: 'No Updates',
         message: 'You\'re running the latest version of Keypress.',
@@ -341,7 +351,8 @@ function setupAutoUpdater() {
   });
 
   autoUpdater.on('update-downloaded', () => {
-    dialog.showMessageBox({
+    const parent = settingsWindow || BrowserWindow.getFocusedWindow() || null;
+    dialog.showMessageBox(parent, {
       type: 'info',
       title: 'Update Ready',
       message: 'Update downloaded. Keypress will restart to install it.',
@@ -354,7 +365,8 @@ function setupAutoUpdater() {
 
   autoUpdater.on('error', () => {
     if (manualUpdateCheck) {
-      dialog.showMessageBox({
+      const parent = settingsWindow || BrowserWindow.getFocusedWindow() || null;
+      dialog.showMessageBox(parent, {
         type: 'error',
         title: 'Update Error',
         message: 'Could not check for updates. Please try again later.',
@@ -409,6 +421,11 @@ app.whenReady().then(() => {
         app.dock.show();
       } else {
         app.dock.hide();
+        // Re-show settings window after dock hide (it loses focus)
+        if (settingsWindow) {
+          settingsWindow.show();
+          settingsWindow.focus();
+        }
       }
     }
 
@@ -498,6 +515,7 @@ app.whenReady().then(() => {
     if (settings.theme === 'auto' && overlay) {
       overlay.webContents.send('theme-resolved', getResolvedTheme());
     }
+    updateDockIcon();
   });
 
   // Reposition overlay when displays change
@@ -585,6 +603,7 @@ app.whenReady().then(() => {
   } else {
     app.dock.hide();
   }
+  updateDockIcon();
 
   // Sync login item with persisted setting (fails silently in dev — unsigned app)
   try { app.setLoginItemSettings({ openAtLogin: settings.launchAtLogin }); } catch {}
