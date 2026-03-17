@@ -57,7 +57,7 @@ If you want to contribute or build from source, make sure you have [Node.js](htt
 
 3.  **Build the `.dmg`:**
     ```bash
-    npm run make
+    npm run build
     ```
 
 </br>
