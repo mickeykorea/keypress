@@ -78,4 +78,4 @@ If you want to contribute or build from source, make sure you have [Node.js](htt
 
 [GPL-3.0](https://opensource.org/licenses/GPL-3.0)
 
-Keypress is free and open source. Displaying keystrokes isn't rocket science, nor should it cost you any money.
+Keypress is free and open source. Displaying keystrokes isn't high technology, nor should it cost you any money.
