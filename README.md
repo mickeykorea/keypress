@@ -4,6 +4,12 @@
 ![License](https://img.shields.io/github/license/mickeykorea/keypress)
 ![Platform](https://img.shields.io/badge/platform-macOS-lightgrey)
 
+<p>
+  <img src="src/assets/dockIcon-light.png" width="128" alt="Keypress icon (light)">
+  &nbsp;&nbsp;
+  <img src="src/assets/dockIcon-dark.png" width="128" alt="Keypress icon (dark)">
+</p>
+
 A keystroke visualizer for macOS. Shows what you're typing as a floating overlay on screen. Built for screen recordings, live demos, and tutorials, where viewers need to see what keys are being pressed.
 
 <!-- hero screenshot or GIF here -->
