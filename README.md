@@ -71,7 +71,6 @@ If you want to contribute or build from source, make sure you have [Node.js](htt
 ## Feedback
 
 - **Email:** mickey@protopie.io
-- **Star the Repo:** It helps others discover the app.
 
 </br>
 
