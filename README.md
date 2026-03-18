@@ -4,7 +4,7 @@
 ![License](https://img.shields.io/github/license/mickeykorea/keypress)
 ![Platform](https://img.shields.io/badge/platform-macOS-lightgrey)
 
-<p>
+<p align="center">
   <img src="src/assets/dockIcon-light.png" width="128" alt="Keypress icon (light)">
   &nbsp;&nbsp;
   <img src="src/assets/dockIcon-dark.png" width="128" alt="Keypress icon (dark)">
