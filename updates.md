@@ -107,6 +107,18 @@
 
 ---
 
+## v1.0.4
+
+### DMG Installer Layout Fix
+
+- DMG installer window icons (app icon + Applications folder) are off-center — shifted ~60px left of the background chevron
+- Current positions in `electron-builder.yml`: App (130, 220), Applications (410, 220) — midpoint at x=270 vs window center at x=330
+- Fix: update icon coordinates to (190, 200) and (470, 200) to center symmetrically around the chevron
+- Add explicit `window` size (660×400) for consistent rendering
+- Requires DMG rebuild and re-notarization via `npm run build`
+
+---
+
 ## Future Improvements / Roadmap
 
 ### Overlay Architecture
