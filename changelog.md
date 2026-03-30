@@ -132,6 +132,28 @@
 
 - Added ⌘W support to close the Settings and About windows
 
+### macOS Function Row Key Support (F1–F12)
+
+- Added full support for the macOS function row media keys (F1–F12 without fn)
+- Each key displays its official Apple SF Symbol icon instead of raw keycodes or `[0]`:
+  - F1/F2: `sun.min` / `sun.max` (brightness)
+  - F3: `rectangle.3.group.fill` (Mission Control)
+  - F4: `magnifyingglass` (Spotlight)
+  - F5: `microphone.fill` (Dictation)
+  - F6: `moon.fill` (Do Not Disturb)
+  - F7/F9: `backward.fill` / `forward.fill` (media skip)
+  - F8: `playpause.fill` (play/pause)
+  - F10: `speaker.fill` (mute)
+  - F11/F12: `speaker.wave.1.fill` / `speaker.wave.3.fill` (volume)
+- fn+F1–F12 continues to show "F1"–"F12" text as before
+- SVG icons inherit keycap text color via `currentColor` for full theme compatibility (light/dark/custom)
+
+### Native uiohook-napi Patch
+
+- Patched `addon.c` to expose the `rawcode` field from keyboard events, enabling identification of keys that translate to keycode 0 (VC_UNDEFINED)
+- Patched `input_hook.c` with a generic NX system key handler that forwards previously-invisible macOS system keys (brightness, Mission Control, Spotlight, Dictation, DND) by encoding their NX_KEYTYPE in the rawcode field
+- Patches managed via `patch-package` and auto-applied on install
+
 ---
 
 ## Future Improvements / Roadmap

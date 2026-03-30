@@ -215,6 +215,20 @@ html[data-theme="custom"] .keycap {
   min-width: auto;
 }
 
+/* Media icon keycap — fixed square size, SVG inherits text color */
+.keycap.media-icon {
+  width: 60px;
+  min-width: auto;
+  padding: 0;
+}
+
+.keycap.media-icon svg {
+  width: 1em;
+  height: 1em;
+  stroke: currentColor;
+  stroke-width: 0.2px;
+}
+
 /* Arrow keycap — fixed square size */
 .keycap.arrow-key {
   width: 60px;
@@ -222,11 +236,13 @@ html[data-theme="custom"] .keycap {
   padding: 0;
 }
 
-html[data-size="small"] .keycap.arrow-key {
+html[data-size="small"] .keycap.arrow-key,
+html[data-size="small"] .keycap.media-icon {
   width: 45px;
 }
 
-html[data-size="large"] .keycap.arrow-key {
+html[data-size="large"] .keycap.arrow-key,
+html[data-size="large"] .keycap.media-icon {
   width: 78px;
 }
 

@@ -293,6 +293,7 @@ function startKeyListener() {
 
     overlay.webContents.send('key-pressed', {
       keycode: e.keycode,
+      rawcode: e.rawcode,
       altKey: e.altKey,
       ctrlKey: e.ctrlKey,
       metaKey: e.metaKey,

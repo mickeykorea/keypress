@@ -5,6 +5,7 @@
   "description": "Lightweight macOS utility that displays keyboard input as a floating overlay",
   "main": "src/main.js",
   "scripts": {
+    "postinstall": "patch-package && npx @electron/rebuild -f -w uiohook-napi",
     "start": "electron .",
     "build": "electron-builder --mac",
     "build:publish": "electron-builder --mac --publish always"
@@ -13,8 +14,10 @@
   "license": "GPL-3.0",
   "devDependencies": {
     "@electron/fuses": "^1.8.0",
+    "@electron/rebuild": "^4.0.3",
     "electron": "^39.5.0",
-    "electron-builder": "^26.0.0"
+    "electron-builder": "^26.0.0",
+    "patch-package": "^8.0.1"
   },
   "dependencies": {
     "electron-conf": "^1.3.0",

@@ -1,0 +1,46 @@
+diff --git a/node_modules/uiohook-napi/libuiohook/src/darwin/input_hook.c b/node_modules/uiohook-napi/libuiohook/src/darwin/input_hook.c
+index e6cd6ce..9f8c459 100644
+--- a/node_modules/uiohook-napi/libuiohook/src/darwin/input_hook.c
++++ b/node_modules/uiohook-napi/libuiohook/src/darwin/input_hook.c
+@@ -678,6 +678,18 @@ static inline void process_system_key(uint64_t timestamp, CGEventRef event_ref)
+ 
+                 CFRelease(ns_event);
+                 CFRelease(src);
++            } else {
++                // Generic handler for unhandled NX system keys
++                // (brightness, mission control, spotlight, dictation, DND, etc.)
++                // Encode NX_KEYTYPE in rawcode as 0xE0 | key_code.
++                event.time = timestamp;
++                event.reserved = 0x00;
++                event.type = key_down ? EVENT_KEY_PRESSED : EVENT_KEY_RELEASED;
++                event.mask = get_modifiers();
++                event.data.keyboard.keycode = VC_UNDEFINED;
++                event.data.keyboard.rawcode = 0xE0 | key_code;
++                event.data.keyboard.keychar = CHAR_UNDEFINED;
++                dispatch_event(&event);
+             }
+         }
+     }
+diff --git a/node_modules/uiohook-napi/src/lib/addon.c b/node_modules/uiohook-napi/src/lib/addon.c
+index d4dffe9..d06da2f 100644
+--- a/node_modules/uiohook-napi/src/lib/addon.c
++++ b/node_modules/uiohook-napi/src/lib/addon.c
+@@ -62,6 +62,10 @@ napi_value uiohook_to_js_event(napi_env env, uiohook_event* event) {
+     status = napi_create_uint32(env, event->data.keyboard.keycode, &e_keycode);
+     NAPI_FATAL_IF_FAILED(status, "uiohook_to_js_event", "napi_create_uint32");
+ 
++    napi_value e_rawcode;
++    status = napi_create_uint32(env, event->data.keyboard.rawcode, &e_rawcode);
++    NAPI_FATAL_IF_FAILED(status, "uiohook_to_js_event", "napi_create_uint32");
++
+     napi_property_descriptor descriptors[] = {
+       { "type",     NULL, NULL, NULL, NULL, e_type,     napi_enumerable, NULL },
+       { "time",     NULL, NULL, NULL, NULL, e_time,     napi_enumerable, NULL },
+@@ -70,6 +74,7 @@ napi_value uiohook_to_js_event(napi_env env, uiohook_event* event) {
+       { "metaKey",  NULL, NULL, NULL, NULL, e_metaKey,  napi_enumerable, NULL },
+       { "shiftKey", NULL, NULL, NULL, NULL, e_shiftKey, napi_enumerable, NULL },
+       { "keycode",  NULL, NULL, NULL, NULL, e_keycode,  napi_enumerable, NULL },
++      { "rawcode",  NULL, NULL, NULL, NULL, e_rawcode,  napi_enumerable, NULL },
+     };
+     status = napi_define_properties(env, event_obj, sizeof(descriptors) / sizeof(descriptors[0]), descriptors);
+     NAPI_FATAL_IF_FAILED(status, "uiohook_to_js_event", "napi_define_properties");

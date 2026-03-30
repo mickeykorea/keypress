@@ -76,6 +76,14 @@ const KEY_MAP = {
   69: 'Num Lock',
   70: 'Scroll Lock',
   3639: 'Print Screen',
+
+  // Media keys (macOS function row without fn)
+  57360: 'media-previous',   // VC_MEDIA_PREVIOUS  — F7 media mode
+  57378: 'media-play',       // VC_MEDIA_PLAY      — F8 media mode
+  57369: 'media-next',       // VC_MEDIA_NEXT      — F9 media mode
+  57376: 'volume-mute',      // VC_VOLUME_MUTE     — F10 media mode
+  57390: 'volume-down',      // VC_VOLUME_DOWN     — F11 media mode
+  57392: 'volume-up',        // VC_VOLUME_UP       — F12 media mode
 };
 
 // Shift + key → resolved symbol (US QWERTY). Only symbols/numbers, not letters.
@@ -95,6 +103,18 @@ const SHIFT_MAP = {
   52: '>',   // .  → >
   53: '?',   // /  → ?
   41: '~',   // `  → ~
+};
+
+// Rawcode fallback map — macOS keys that arrive with keycode 0 (VC_UNDEFINED).
+// F3-F6 come as regular keyboard events with unmapped macOS keycodes.
+// F1-F2 (brightness) come via our NX handler patch: rawcode = 0xE0 | NX_KEYTYPE.
+const RAWCODE_MAP = {
+  0xE2: 'brightness-up',      // NX_KEYTYPE_BRIGHTNESS_UP   — F2 media mode
+  0xE3: 'brightness-down',    // NX_KEYTYPE_BRIGHTNESS_DOWN — F1 media mode
+  160:  'mission-control',    // macOS keycode 0xA0         — F3 media mode
+  177:  'spotlight',          // macOS keycode 0xB1         — F4 media mode
+  176:  'dictation',          // macOS keycode 0xB0         — F5 media mode
+  178:  'do-not-disturb',     // macOS keycode 0xB2         — F6 media mode
 };
 
 // Modifier keycodes — these get special treatment
@@ -127,4 +147,6 @@ const SPECIAL_KEYCODES = new Set([
   // F-keys
   59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 87, 88,
   91, 92, 93, 99, 100, 101, 102, 103, 104, 105, 106, 107,
+  // Media keys (macOS function row)
+  57360, 57378, 57369, 57376, 57390, 57392,
 ]);
