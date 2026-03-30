@@ -567,6 +567,12 @@ app.whenReady().then(() => {
         { role: 'selectAll' },
       ],
     },
+    {
+      label: 'Window',
+      submenu: [
+        { role: 'close' },
+      ],
+    },
   ]);
   Menu.setApplicationMenu(appMenu);
   toggleMenuItem = appMenu.items[0].submenu.items[3]; // "Show Keypress" checkbox

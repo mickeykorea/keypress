@@ -107,7 +107,7 @@
 
 ---
 
-## v1.0.4
+## v1.0.3
 
 ### DMG Installer Layout Fix
 
@@ -116,6 +116,21 @@
 - Fix: update icon coordinates to (190, 200) and (470, 200) to center symmetrically around the chevron
 - Add explicit `window` size (660×400) for consistent rendering
 - Requires DMG rebuild and re-notarization via `npm run build`
+
+---
+
+## v1.0.4
+
+### App Icon Padding Fix
+
+- Fixed visible border around app icon in macOS System Settings (e.g., Accessibility, Privacy & Security)
+- Added 10% transparent padding around icon assets so the rounded-square shape no longer touches the canvas edge
+- Regenerated `icon.icns` from updated source image
+- Updated About window to reference renamed icon files (`Keypress-Default.png`, `Keypress-Dark.png`)
+
+### Close Window Shortcut
+
+- Added ⌘W support to close the Settings and About windows
 
 ---
 
