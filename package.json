@@ -1,7 +1,7 @@
 {
   "name": "keypress",
   "productName": "Keypress",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Lightweight macOS utility that displays keyboard input as a floating overlay",
   "main": "src/main.js",
   "scripts": {
