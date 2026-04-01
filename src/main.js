@@ -241,12 +241,22 @@ function getSystemCapsLockState() {
 
 function buildTrayMenu() {
   if (!tray) return;
+
+  let updateItem;
+  if (updateDownloading) {
+    updateItem = { label: `Downloading Update… ${updateDownloadPercent}%`, enabled: false };
+  } else if (manualUpdateCheck) {
+    updateItem = { label: 'Checking for Updates…', enabled: false };
+  } else {
+    updateItem = { label: 'Check for Updates…', click: () => checkForUpdates() };
+  }
+
   const menu = Menu.buildFromTemplate([
     { label: 'Show Keypress', type: 'checkbox', checked: isEnabled, accelerator: 'Alt+CmdOrCtrl+K', click: () => toggleKeypress() },
     { type: 'separator' },
-    { label: 'Settings...', click: () => createSettingsWindow() },
+    { label: 'Settings…', click: () => createSettingsWindow() },
     { label: 'About Keypress', click: () => createAboutWindow() },
-    { label: 'Check for Updates...', click: () => checkForUpdates() },
+    updateItem,
     { type: 'separator' },
     { label: 'Quit', click: () => app.quit() },
   ]);
@@ -321,12 +331,24 @@ function startKeyListener() {
 
 // ── Auto-updater ─────────────────────────────────────────────────
 let manualUpdateCheck = false;
+let updateDownloading = false;
+let updateDownloadPercent = 0;
 
 function setupAutoUpdater() {
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = true;
 
+  autoUpdater.on('checking-for-update', () => {
+    if (manualUpdateCheck) {
+      updateDownloading = false;
+      updateDownloadPercent = 0;
+      buildTrayMenu();
+    }
+  });
+
   autoUpdater.on('update-available', (info) => {
+    manualUpdateCheck = false;
+    buildTrayMenu();
     const parent = settingsWindow || BrowserWindow.getFocusedWindow() || null;
     dialog.showMessageBox(parent, {
       type: 'info',
@@ -335,7 +357,12 @@ function setupAutoUpdater() {
       buttons: ['Download', 'Later'],
       defaultId: 0,
     }).then(({ response }) => {
-      if (response === 0) autoUpdater.downloadUpdate();
+      if (response === 0) {
+        updateDownloading = true;
+        updateDownloadPercent = 0;
+        buildTrayMenu();
+        autoUpdater.downloadUpdate();
+      }
     });
   });
 
@@ -347,11 +374,20 @@ function setupAutoUpdater() {
         title: 'No Updates',
         message: 'You\'re running the latest version of Keypress.',
       });
-      manualUpdateCheck = false;
     }
+    manualUpdateCheck = false;
+    buildTrayMenu();
+  });
+
+  autoUpdater.on('download-progress', (progress) => {
+    updateDownloadPercent = Math.round(progress.percent);
+    buildTrayMenu();
   });
 
   autoUpdater.on('update-downloaded', () => {
+    updateDownloading = false;
+    updateDownloadPercent = 0;
+    buildTrayMenu();
     const parent = settingsWindow || BrowserWindow.getFocusedWindow() || null;
     dialog.showMessageBox(parent, {
       type: 'info',
@@ -364,22 +400,31 @@ function setupAutoUpdater() {
     });
   });
 
-  autoUpdater.on('error', () => {
+  autoUpdater.on('error', (err) => {
+    console.error('Auto-updater error:', err?.message || err);
+    updateDownloading = false;
+    updateDownloadPercent = 0;
+    buildTrayMenu();
     if (manualUpdateCheck) {
       const parent = settingsWindow || BrowserWindow.getFocusedWindow() || null;
       dialog.showMessageBox(parent, {
         type: 'error',
         title: 'Update Error',
-        message: 'Could not check for updates. Please try again later.',
+        message: `Could not check for updates. Please try again later.\n\n${err?.message || ''}`,
       });
-      manualUpdateCheck = false;
     }
+    manualUpdateCheck = false;
   });
 }
 
 function checkForUpdates() {
   manualUpdateCheck = true;
-  autoUpdater.checkForUpdates();
+  buildTrayMenu();
+  autoUpdater.checkForUpdates().catch((err) => {
+    console.error('checkForUpdates failed:', err?.message || err);
+    manualUpdateCheck = false;
+    buildTrayMenu();
+  });
 }
 
 // App lifecycle
@@ -602,7 +647,11 @@ app.whenReady().then(() => {
 
   // Auto-updater: set up event handlers and check silently on launch
   setupAutoUpdater();
-  setTimeout(() => autoUpdater.checkForUpdates(), 3000);
+  setTimeout(() => {
+    autoUpdater.checkForUpdates().catch((err) => {
+      console.error('Silent update check failed:', err?.message || err);
+    });
+  }, 3000);
 
   // Apply initial dock visibility from persisted setting
   if (settings.showInDock) {

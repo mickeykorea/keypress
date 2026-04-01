@@ -7,8 +7,10 @@
   "scripts": {
     "postinstall": "patch-package && npx @electron/rebuild -f -w uiohook-napi",
     "start": "electron .",
-    "build": "electron-builder --mac",
-    "build:publish": "electron-builder --mac --publish always"
+    "build": "electron-builder --mac --arm64 && electron-builder --mac --x64",
+    "build:silicon": "electron-builder --mac --arm64",
+    "build:intel": "electron-builder --mac --x64",
+    "build:publish": "electron-builder --mac --arm64 --publish always && electron-builder --mac --x64 --publish always"
   },
   "author": "",
   "license": "GPL-3.0",
