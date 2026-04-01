@@ -5,6 +5,7 @@ files:
   - "**/*"
   - "!**/node_modules/uiohook-napi/prebuilds/linux-*"
   - "!**/node_modules/uiohook-napi/prebuilds/win32-*"
+  - "!**/node_modules/uiohook-napi/build"
 
 mac:
   icon: src/assets/icon.icns

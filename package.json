@@ -1,16 +1,17 @@
 {
   "name": "keypress",
   "productName": "Keypress",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "Lightweight macOS utility that displays keyboard input as a floating overlay",
   "main": "src/main.js",
   "scripts": {
     "postinstall": "patch-package && npx @electron/rebuild -f -w uiohook-napi",
     "start": "electron .",
-    "build": "electron-builder --mac --arm64 && electron-builder --mac --x64",
+    "build": "npm run build:silicon && npm run build:intel",
     "build:silicon": "electron-builder --mac --arm64",
     "build:intel": "electron-builder --mac --x64",
-    "build:publish": "electron-builder --mac --arm64 --publish always && electron-builder --mac --x64 --publish always"
+    "build:yml": "node scripts/mergeYml.js",
+    "build:publish": "npm run build:silicon -- --publish always && npm run build:intel -- --publish always"
   },
   "author": "",
   "license": "GPL-3.0",

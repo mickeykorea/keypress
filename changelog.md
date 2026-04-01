@@ -156,6 +156,34 @@
 
 ---
 
+## v1.0.5
+
+### Auto-Update Fix
+
+- Fixed v1.0.3 → v1.0.4 update failure caused by incorrect architecture in release artifacts
+- Added `latest-mac-arm64.yml` manifest for Apple Silicon auto-update support
+- Build scripts now produce separate arm64 and x64 builds with correct yml manifests
+
+### Update Progress Feedback
+
+- Tray menu now shows live update status: "Checking for Updates…", "Downloading Update… X%"
+- Menu item is disabled during check/download to prevent duplicate triggers
+- Error dialog now includes the actual error message for easier troubleshooting
+- Added `console.error` logging for all update failures (including silent startup checks)
+- Added `.catch()` on `checkForUpdates()` to prevent unhandled promise rejections
+
+---
+
+## v1.0.6
+
+### Intel Mac Launch Crash Fix
+
+- Fixed crash on Intel Macs caused by `uiohook-napi/build/Release/uiohook_napi.node` containing arm64 binary
+- `node-gyp-build` loads `build/Release/` before `prebuilds/` without architecture checking — excluded `build/` directory from packaged app via electron-builder config
+- App now loads exclusively from `prebuilds/darwin-{arch}/` which contains correct per-architecture binaries
+
+---
+
 ## Future Improvements / Roadmap
 
 ### Overlay Architecture
