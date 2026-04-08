@@ -184,6 +184,16 @@
 
 ---
 
+## v1.0.8
+
+### Hide Overlay from Mission Control
+
+- Overlay window no longer appears as a selectable window in Mission Control
+- Added `setHiddenInMissionControl(true)` — uses Electron's native NSWindow collection behavior API
+- Overlay remains fully functional: renders on all workspaces, stays on top, passes through mouse events
+
+---
+
 ## Future Improvements / Roadmap
 
 ### Overlay Architecture
