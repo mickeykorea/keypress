@@ -52,6 +52,7 @@ function createOverlay() {
     height,
     x,
     y,
+    type: 'panel',
     transparent: true,
     frame: false,
     alwaysOnTop: true,
@@ -70,6 +71,7 @@ function createOverlay() {
   overlay.setIgnoreMouseEvents(true);
   overlay.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
   overlay.setAlwaysOnTop(true, 'screen-saver');
+  overlay.setHiddenInMissionControl(true);
   overlay.loadFile(path.join(__dirname, 'overlay', 'index.html'));
 }
 
